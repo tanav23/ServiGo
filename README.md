@@ -106,8 +106,11 @@ Repeat customers accounted for 26,310 orders (75.17%); one-time customers accoun
 
 ### Dashboard Preview
 
-<img width="1135" height="521" alt="image" src="https://github.com/user-attachments/assets/30829c75-5494-4e77-a60b-3402107b938b" />
+### Marketplace Operations Overview
+![ServiGo Marketplace Operations Overview](Marketplace_Operations_Overview.png)
 
+### Partner Performance & Service Quality
+![ServiGo Partner Performance Dashboard](Partner_Performance.png)
 
 
 The dashboard contains two pages:
