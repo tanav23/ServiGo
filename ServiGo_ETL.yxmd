@@ -1,0 +1,1999 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2025.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="54" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="0">C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\partners_raw.csv</File>
+          <FormatSpecificOptions>
+            <CodePage>28591</CodePage>
+            <Delimeter>,</Delimeter>
+            <IgnoreErrors>False</IgnoreErrors>
+            <FieldLen>254</FieldLen>
+            <AllowShareWrite>False</AllowShareWrite>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>partners_raw.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Partner_ID" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\partners_raw.csv" type="V_String" />
+            <Field name="Partner_Name" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\partners_raw.csv" type="V_String" />
+            <Field name="City" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\partners_raw.csv" type="V_String" />
+            <Field name="Category" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\partners_raw.csv" type="V_String" />
+            <Field name="Join_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\partners_raw.csv" type="V_String" />
+            <Field name="Experience_Level" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\partners_raw.csv" type="V_String" />
+            <Field name="Initial_Quality_Score" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\partners_raw.csv" type="V_String" />
+            <Field name="Initial_Rating" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\partners_raw.csv" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="150" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Join_Date" selected="True" type="Date" size="10" />
+            <SelectField field="Initial_Quality_Score" selected="True" type="Double" size="8" />
+            <SelectField field="Initial_Rating" selected="True" type="Double" size="8" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="4">
+      <GuiSettings>
+        <Position x="234" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Check Box (135)">False</Value>
+          <Value name="Check Box (136)">False</Value>
+          <Value name="List Box (11)">"Partner_ID","Partner_Name","City","Category","Experience_Level"</Value>
+          <Value name="Check Box (84)">True</Value>
+          <Value name="Check Box (117)">False</Value>
+          <Value name="Check Box (15)">True</Value>
+          <Value name="Check Box (109)">False</Value>
+          <Value name="Check Box (122)">False</Value>
+          <Value name="Check Box (53)">False</Value>
+          <Value name="Check Box (58)">False</Value>
+          <Value name="Check Box (70)">False</Value>
+          <Value name="Check Box (77)">False</Value>
+          <Value name="Drop Down (81)">upper</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Cleanse.yxmc" />
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="330" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="DateTimeDiff(&#xA;    DateTimeParse(&quot;2026-08-31&quot;, &quot;%Y-%m-%d&quot;),&#xA;    [Join_Date],&#xA;    &quot;months&quot;&#xA;)" field="Partner_Tenure_Months" size="4" type="Int32" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Partner_Tenure_Months = DateTimeDiff(
+    DateTimeParse("2026-08-31", "%Y-%m-%d"...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="426" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF ([Partner_Tenure_Months]) &lt; 6 THEN&#xA;&quot;New&quot;&#xA;ELSEIF ([Partner_Tenure_Months]) &lt; 12 THEN&#xA;&quot;Developing&quot;&#xA;ELSEIF ([Partner_Tenure_Months]) &lt; 24 THEN&#xA;&quot;Established&quot;&#xA;ELSE&#xA;&quot;Experienced&quot;&#xA;ENDIF" field="Partner_Tenure_Group" size="20" type="V_WString" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Partner_Tenure_Group = IF ([Partner_Tenure_Months]) &lt; 6 THEN
+"New"
+ELSEIF ([Part...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="54" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="0">C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\onboarding_raw.csv</File>
+          <FormatSpecificOptions>
+            <CodePage>28591</CodePage>
+            <Delimeter>,</Delimeter>
+            <IgnoreErrors>False</IgnoreErrors>
+            <FieldLen>254</FieldLen>
+            <AllowShareWrite>False</AllowShareWrite>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>onboarding_raw.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Partner_ID" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\onboarding_raw.csv" type="V_String" />
+            <Field name="Application_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\onboarding_raw.csv" type="V_String" />
+            <Field name="Verification_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\onboarding_raw.csv" type="V_String" />
+            <Field name="Verification_Status" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\onboarding_raw.csv" type="V_String" />
+            <Field name="Skill_Assessment_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\onboarding_raw.csv" type="V_String" />
+            <Field name="Training_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\onboarding_raw.csv" type="V_String" />
+            <Field name="Training_Status" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\onboarding_raw.csv" type="V_String" />
+            <Field name="Quality_Check_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\onboarding_raw.csv" type="V_String" />
+            <Field name="Initial_Quality_Check" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\onboarding_raw.csv" type="V_String" />
+            <Field name="Activation_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\onboarding_raw.csv" type="V_String" />
+            <Field name="Activation_Status" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\onboarding_raw.csv" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="162" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Application_Date" selected="True" type="Date" size="10" />
+            <SelectField field="Verification_Date" selected="True" type="Date" size="10" />
+            <SelectField field="Skill_Assessment_Date" selected="True" type="Date" size="10" />
+            <SelectField field="Training_Date" selected="True" type="Date" size="10" />
+            <SelectField field="Quality_Check_Date" selected="True" type="Date" size="10" />
+            <SelectField field="Initial_Quality_Check" selected="True" type="Double" size="8" />
+            <SelectField field="Activation_Date" selected="True" type="Date" size="10" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings>
+        <Position x="246" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Check Box (135)">False</Value>
+          <Value name="Check Box (136)">False</Value>
+          <Value name="List Box (11)">"Partner_ID","Application_Date","Verification_Date","Verification_Status","Skill_Assessment_Date","Training_Date","Training_Status","Quality_Check_Date","Initial_Quality_Check","Activation_Date","Activation_Status"</Value>
+          <Value name="Check Box (84)">True</Value>
+          <Value name="Check Box (117)">False</Value>
+          <Value name="Check Box (15)">True</Value>
+          <Value name="Check Box (109)">False</Value>
+          <Value name="Check Box (122)">False</Value>
+          <Value name="Check Box (53)">False</Value>
+          <Value name="Check Box (58)">False</Value>
+          <Value name="Check Box (70)">False</Value>
+          <Value name="Check Box (77)">False</Value>
+          <Value name="Drop Down (81)">upper</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Cleanse.yxmc" />
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="510" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Partner_ID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Partner_ID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_Partner_ID" selected="True" rename="Right_Partner_ID" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="606" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Partner_ID" selected="True" />
+            <SelectField field="Partner_Name" selected="True" />
+            <SelectField field="City" selected="True" />
+            <SelectField field="Category" selected="True" />
+            <SelectField field="Join_Date" selected="True" />
+            <SelectField field="Experience_Level" selected="True" />
+            <SelectField field="Initial_Quality_Score" selected="True" />
+            <SelectField field="Initial_Rating" selected="True" />
+            <SelectField field="Partner_Tenure_Months" selected="True" />
+            <SelectField field="Partner_Tenure_Group" selected="True" />
+            <SelectField field="Application_Date" selected="True" />
+            <SelectField field="Verification_Date" selected="True" />
+            <SelectField field="Verification_Status" selected="True" />
+            <SelectField field="Skill_Assessment_Date" selected="True" />
+            <SelectField field="Training_Date" selected="True" />
+            <SelectField field="Training_Status" selected="True" />
+            <SelectField field="Quality_Check_Date" selected="True" />
+            <SelectField field="Initial_Quality_Check" selected="True" />
+            <SelectField field="Activation_Date" selected="True" />
+            <SelectField field="Activation_Status" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="726" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF [Activation_Status] = &quot;Activated&quot; THEN &quot;Completed&quot;&#xA;ELSEIF [Activation_Status] = &quot;Rejected&quot; THEN &quot;Rejected&quot;&#xA;ELSE &quot;In Progress&quot;&#xA;ENDIF" field="Onboarding_Status" size="20" type="V_WString" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Onboarding_Status = IF [Activation_Status] = "Activated" THEN "Completed"
+ELSEIF...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="846" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF [Activation_Status] = &quot;Activated&quot; THEN &quot;Active&quot;&#xA;ELSE &quot;Inactive&quot;&#xA;ENDIF" field="Active_Status" size="20" type="V_WString" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Active_Status = IF [Activation_Status] = "Activated" THEN "Active"
+ELSE "Inactiv...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="66" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="0">C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\orders_raw.csv</File>
+          <FormatSpecificOptions>
+            <CodePage>28591</CodePage>
+            <Delimeter>,</Delimeter>
+            <IgnoreErrors>False</IgnoreErrors>
+            <FieldLen>254</FieldLen>
+            <AllowShareWrite>False</AllowShareWrite>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>orders_raw.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Order_ID" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\orders_raw.csv" type="V_String" />
+            <Field name="Customer_ID" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\orders_raw.csv" type="V_String" />
+            <Field name="City" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\orders_raw.csv" type="V_String" />
+            <Field name="Category" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\orders_raw.csv" type="V_String" />
+            <Field name="Booking_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\orders_raw.csv" type="V_String" />
+            <Field name="Scheduled_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\orders_raw.csv" type="V_String" />
+            <Field name="Partner_ID" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\orders_raw.csv" type="V_String" />
+            <Field name="Order_Status" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\orders_raw.csv" type="V_String" />
+            <Field name="Cancellation_Reason" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\orders_raw.csv" type="V_String" />
+            <Field name="Completion_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\orders_raw.csv" type="V_String" />
+            <Field name="Service_Duration_Min" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\orders_raw.csv" type="V_String" />
+            <Field name="Response_Time_Min" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\orders_raw.csv" type="V_String" />
+            <Field name="Price" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\orders_raw.csv" type="V_String" />
+            <Field name="Discount" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\orders_raw.csv" type="V_String" />
+            <Field name="Revenue" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\orders_raw.csv" type="V_String" />
+            <Field name="Customer_Rating" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\orders_raw.csv" type="V_String" />
+            <Field name="Complaint_Flag" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\orders_raw.csv" type="V_String" />
+            <Field name="Rework_Flag" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\orders_raw.csv" type="V_String" />
+            <Field name="Assignment_Status" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\orders_raw.csv" type="V_String" />
+            <Field name="Repeat_Booking_Flag" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\orders_raw.csv" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="138" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Booking_Date" selected="True" type="Date" size="10" />
+            <SelectField field="Scheduled_Date" selected="True" type="Date" size="10" />
+            <SelectField field="Completion_Date" selected="True" type="Date" size="10" />
+            <SelectField field="Service_Duration_Min" selected="True" type="Double" size="8" />
+            <SelectField field="Response_Time_Min" selected="True" type="Double" size="8" />
+            <SelectField field="Price" selected="True" type="Double" size="8" />
+            <SelectField field="Discount" selected="True" type="Double" size="8" />
+            <SelectField field="Revenue" selected="True" type="Double" size="8" />
+            <SelectField field="Customer_Rating" selected="True" type="Double" size="8" />
+            <SelectField field="Complaint_Flag" selected="True" type="Int32" size="4" />
+            <SelectField field="Rework_Flag" selected="True" type="Int32" size="4" />
+            <SelectField field="Repeat_Booking_Flag" selected="True" type="Int32" size="4" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="17">
+      <GuiSettings>
+        <Position x="210" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Check Box (135)">False</Value>
+          <Value name="Check Box (136)">False</Value>
+          <Value name="List Box (11)">"Order_ID","Customer_ID","City","Category","Partner_ID","Order_Status","Cancellation_Reason","Assignment_Status"</Value>
+          <Value name="Check Box (84)">True</Value>
+          <Value name="Check Box (117)">False</Value>
+          <Value name="Check Box (15)">True</Value>
+          <Value name="Check Box (109)">False</Value>
+          <Value name="Check Box (122)">False</Value>
+          <Value name="Check Box (53)">False</Value>
+          <Value name="Check Box (58)">False</Value>
+          <Value name="Check Box (70)">False</Value>
+          <Value name="Check Box (77)">False</Value>
+          <Value name="Drop Down (81)">upper</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Cleanse.yxmc" />
+    </Node>
+    <Node ToolID="18">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="282" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="DateTimeFormat([Booking_Date],&quot;%Y-%m&quot;)" field="Order_Month" size="7" type="V_String" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Order_Month = DateTimeFormat([Booking_Date],"%Y-%m")
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="19">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="354" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="DateTimeDiff([Scheduled_Date],[Booking_Date],&quot;days&quot;)" field="Order_Delay_Days" size="8" type="Double" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Order_Delay_Days = DateTimeDiff([Scheduled_Date],[Booking_Date],"days")
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="426" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF [Order_Status] = &quot;completed&quot; THEN 1&#xA;Else 0&#xA;ENDIF" field="Service_Completed_Flags" size="4" type="Int32" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Service_Completed_Flags = IF [Order_Status] = "completed" THEN 1
+Else 0
+ENDIF
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="21">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="498" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF [Order_Status]=&quot;Cancelled&quot; THEN 1&#xA;Else 0&#xA;ENDIF" field="Order_Cancelled_Flag" size="4" type="Int32" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Order_Cancelled_Flag = IF [Order_Status]="Cancelled" THEN 1
+Else 0
+ENDIF
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="22">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="570" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF [Order_Status]=&quot;No-Show&quot; THEN 1&#xA;ELSE 0&#xA;ENDIF" field="Order_NoShow_Flag" size="4" type="Int32" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Order_NoShow_Flag = IF [Order_Status]="No-Show" THEN 1
+ELSE 0
+ENDIF
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="23">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="642" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF [Assignment_Status]=&quot;Assigned&quot; THEN 1&#xA;ELSE 0&#xA;ENDIF" field="Order_Assigned_Flag" size="4" type="Int32" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Order_Assigned_Flag = IF [Assignment_Status]="Assigned" THEN 1
+ELSE 0
+ENDIF
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="24">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="714" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF [Cancellation_Reason]=&quot;Partner Unavailable&quot; OR [Cancellation_Reason]=&quot;Partner Rejected&quot;&#xA;THEN 1&#xA;ELSE 0&#xA;ENDIF" field="Partner_Cancelled_Flag" size="4" type="Int32" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Partner_Cancelled_Flag = IF [Cancellation_Reason]="Partner Unavailable" OR [Canc...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="25">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="786" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF [Cancellation_Reason]=&quot;Customer Cancelled&quot; THEN 1&#xA;ELSE 0&#xA;ENDIF" field="Customer_Cancelled_Flag" size="4" type="Int32" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Customer_Cancelled_Flag = IF [Cancellation_Reason]="Customer Cancelled" THEN 1
+E...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="26">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="858" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF [Cancellation_Reason]=&quot;No Partner Available&quot; THEN 1&#xA;ELSE 0&#xA;ENDIF" field="Supply_Failure_Flag" size="4" type="Int32" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Supply_Failure_Flag = IF [Cancellation_Reason]="No Partner Available" THEN 1
+ELS...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="27">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="930" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF [Cancellation_Reason]=&quot;Scheduling Conflict&quot; THEN 1&#xA;ELSE 0&#xA;ENDIF" field="Scheduling_Issue_Flag" size="4" type="Int32" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Scheduling_Issue_Flag = IF [Cancellation_Reason]="Scheduling Conflict" THEN 1
+EL...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="29">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1014" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF [Price]&gt;0 THEN [Discount]/[Price]&#xA;ELSE 0&#xA;ENDIF" field="Discount_Rate" size="8" type="Double" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Discount_Rate = IF [Price]>0 THEN [Discount]/[Price]
+ELSE 0
+ENDIF
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="30">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1098" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF [Response_Time_Min]&gt;60 THEN&#xA;1&#xA;Else&#xA;0&#xA;ENDIF" field="High_ResponseTime_Flag" size="4" type="Int32" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[High_ResponseTime_Flag = IF [Response_Time_Min]>60 THEN
+1
+Else
+0
+ENDIF
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="32">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1182" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF [Service_Duration_Min]&gt;0&#xA;THEN [Service_Duration_Min]/60&#xA;ELSE &#xA;0&#xA;ENDIF" field="Service_Duration_Hours" size="8" type="Double" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Service_Duration_Hours = IF [Service_Duration_Min]&gt;0
+THEN [Service_Duration_Min]...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="34">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="990" y="714" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="0">C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\customers_raw.csv</File>
+          <FormatSpecificOptions>
+            <CodePage>28591</CodePage>
+            <Delimeter>,</Delimeter>
+            <IgnoreErrors>False</IgnoreErrors>
+            <FieldLen>254</FieldLen>
+            <AllowShareWrite>False</AllowShareWrite>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>customers_raw.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Customer_ID" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\customers_raw.csv" type="V_String" />
+            <Field name="City" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\customers_raw.csv" type="V_String" />
+            <Field name="Signup_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\customers_raw.csv" type="V_String" />
+            <Field name="Signup_Channel" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\customers_raw.csv" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="35">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1086" y="714" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Signup_Date" selected="True" type="Date" size="10" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="36">
+      <GuiSettings>
+        <Position x="1170" y="714" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Check Box (135)">False</Value>
+          <Value name="Check Box (136)">False</Value>
+          <Value name="List Box (11)">"Customer_ID","City","Signup_Channel"</Value>
+          <Value name="Check Box (84)">True</Value>
+          <Value name="Check Box (117)">False</Value>
+          <Value name="Check Box (15)">True</Value>
+          <Value name="Check Box (109)">False</Value>
+          <Value name="Check Box (122)">False</Value>
+          <Value name="Check Box (53)">False</Value>
+          <Value name="Check Box (58)">False</Value>
+          <Value name="Check Box (70)">False</Value>
+          <Value name="Check Box (77)">False</Value>
+          <Value name="Drop Down (81)">upper</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Cleanse.yxmc" />
+    </Node>
+    <Node ToolID="37">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1350" y="594" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Customer_ID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Customer_ID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_Customer_ID" selected="True" rename="Right_Customer_ID" input="Right_" />
+                <SelectField field="Right_City" selected="True" rename="Right_City" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="38">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1446" y="594" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Order_ID" selected="True" />
+            <SelectField field="Customer_ID" selected="True" />
+            <SelectField field="City" selected="True" />
+            <SelectField field="Category" selected="True" />
+            <SelectField field="Booking_Date" selected="True" />
+            <SelectField field="Scheduled_Date" selected="True" />
+            <SelectField field="Partner_ID" selected="True" />
+            <SelectField field="Order_Status" selected="True" />
+            <SelectField field="Cancellation_Reason" selected="True" />
+            <SelectField field="Completion_Date" selected="True" />
+            <SelectField field="Service_Duration_Min" selected="True" />
+            <SelectField field="Response_Time_Min" selected="True" />
+            <SelectField field="Price" selected="True" />
+            <SelectField field="Discount" selected="True" />
+            <SelectField field="Revenue" selected="True" />
+            <SelectField field="Customer_Rating" selected="True" />
+            <SelectField field="Complaint_Flag" selected="True" />
+            <SelectField field="Rework_Flag" selected="True" />
+            <SelectField field="Assignment_Status" selected="True" />
+            <SelectField field="Repeat_Booking_Flag" selected="True" />
+            <SelectField field="Order_Month" selected="True" />
+            <SelectField field="Order_Delay_Days" selected="True" />
+            <SelectField field="Service_Completed_Flags" selected="True" />
+            <SelectField field="Order_Cancelled_Flag" selected="True" />
+            <SelectField field="Order_NoShow_Flag" selected="True" />
+            <SelectField field="Order_Assigned_Flag" selected="True" />
+            <SelectField field="Partner_Cancelled_Flag" selected="True" />
+            <SelectField field="Customer_Cancelled_Flag" selected="True" />
+            <SelectField field="Supply_Failure_Flag" selected="True" />
+            <SelectField field="Scheduling_Issue_Flag" selected="True" />
+            <SelectField field="Discount_Rate" selected="True" />
+            <SelectField field="High_ResponseTime_Flag" selected="True" />
+            <SelectField field="Service_Duration_Hours" selected="True" />
+            <SelectField field="Right_City" selected="True" />
+            <SelectField field="Signup_Date" selected="True" />
+            <SelectField field="Signup_Channel" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="40">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1506" y="258" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Partner_ID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Partner_ID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_Right_City" selected="True" rename="Left_Right_City" input="Left_" />
+                <SelectField field="Right_Partner_ID" selected="True" rename="Right_Partner_ID" input="Right_" />
+                <SelectField field="Right_City" selected="True" rename="Right_City" input="Right_" />
+                <SelectField field="Right_Category" selected="True" rename="Right_Category" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="41">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1614" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Order_ID" selected="True" />
+            <SelectField field="Customer_ID" selected="True" />
+            <SelectField field="City" selected="True" />
+            <SelectField field="Category" selected="True" />
+            <SelectField field="Booking_Date" selected="True" />
+            <SelectField field="Scheduled_Date" selected="True" />
+            <SelectField field="Partner_ID" selected="True" />
+            <SelectField field="Order_Status" selected="True" />
+            <SelectField field="Cancellation_Reason" selected="True" />
+            <SelectField field="Completion_Date" selected="True" />
+            <SelectField field="Service_Duration_Min" selected="True" />
+            <SelectField field="Response_Time_Min" selected="True" />
+            <SelectField field="Price" selected="True" />
+            <SelectField field="Discount" selected="True" />
+            <SelectField field="Revenue" selected="True" />
+            <SelectField field="Customer_Rating" selected="True" />
+            <SelectField field="Complaint_Flag" selected="True" />
+            <SelectField field="Rework_Flag" selected="True" />
+            <SelectField field="Assignment_Status" selected="True" />
+            <SelectField field="Repeat_Booking_Flag" selected="True" />
+            <SelectField field="Order_Month" selected="True" />
+            <SelectField field="Order_Delay_Days" selected="True" />
+            <SelectField field="Service_Completed_Flags" selected="True" />
+            <SelectField field="Order_Cancelled_Flag" selected="True" />
+            <SelectField field="Order_NoShow_Flag" selected="True" />
+            <SelectField field="Order_Assigned_Flag" selected="True" />
+            <SelectField field="Partner_Cancelled_Flag" selected="True" />
+            <SelectField field="Customer_Cancelled_Flag" selected="True" />
+            <SelectField field="Supply_Failure_Flag" selected="True" />
+            <SelectField field="Scheduling_Issue_Flag" selected="True" />
+            <SelectField field="Discount_Rate" selected="True" />
+            <SelectField field="High_ResponseTime_Flag" selected="True" />
+            <SelectField field="Service_Duration_Hours" selected="True" />
+            <SelectField field="Signup_Date" selected="True" />
+            <SelectField field="Signup_Channel" selected="True" />
+            <SelectField field="Partner_Name" selected="True" />
+            <SelectField field="Join_Date" selected="True" />
+            <SelectField field="Experience_Level" selected="True" />
+            <SelectField field="Initial_Quality_Score" selected="True" />
+            <SelectField field="Initial_Rating" selected="True" />
+            <SelectField field="Partner_Tenure_Months" selected="True" />
+            <SelectField field="Partner_Tenure_Group" selected="True" />
+            <SelectField field="Application_Date" selected="True" />
+            <SelectField field="Verification_Date" selected="True" />
+            <SelectField field="Verification_Status" selected="True" />
+            <SelectField field="Skill_Assessment_Date" selected="True" />
+            <SelectField field="Training_Date" selected="True" />
+            <SelectField field="Training_Status" selected="True" />
+            <SelectField field="Quality_Check_Date" selected="True" />
+            <SelectField field="Initial_Quality_Check" selected="True" />
+            <SelectField field="Activation_Date" selected="True" />
+            <SelectField field="Activation_Status" selected="True" />
+            <SelectField field="Onboarding_Status" selected="True" />
+            <SelectField field="Active_Status" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="42">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1602" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Right_City" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="43">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1698" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Ignore</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="45">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="390" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="0">C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\partner_availability_raw.csv</File>
+          <FormatSpecificOptions>
+            <CodePage>28591</CodePage>
+            <Delimeter>,</Delimeter>
+            <IgnoreErrors>False</IgnoreErrors>
+            <FieldLen>254</FieldLen>
+            <AllowShareWrite>False</AllowShareWrite>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>partner_availability_raw.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\partner_availability_raw.csv" type="V_String" />
+            <Field name="Partner_ID" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\partner_availability_raw.csv" type="V_String" />
+            <Field name="Available_Hours" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\partner_availability_raw.csv" type="V_String" />
+            <Field name="Booked_Hours" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\partner_availability_raw.csv" type="V_String" />
+            <Field name="Availability_Status" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Data\partner_availability_raw.csv" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="46">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="510" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Available_Hours" selected="True" type="Double" size="8" />
+            <SelectField field="Booked_Hours" selected="True" type="Double" size="8" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="47">
+      <GuiSettings>
+        <Position x="594" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Check Box (135)">False</Value>
+          <Value name="Check Box (136)">False</Value>
+          <Value name="List Box (11)">"Date","Partner_ID","Availability_Status"</Value>
+          <Value name="Check Box (84)">True</Value>
+          <Value name="Check Box (117)">False</Value>
+          <Value name="Check Box (15)">True</Value>
+          <Value name="Check Box (109)">False</Value>
+          <Value name="Check Box (122)">False</Value>
+          <Value name="Check Box (53)">False</Value>
+          <Value name="Check Box (58)">False</Value>
+          <Value name="Check Box (70)">False</Value>
+          <Value name="Check Box (77)">False</Value>
+          <Value name="Drop Down (81)">upper</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Cleanse.yxmc" />
+    </Node>
+    <Node ToolID="48">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="678" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="DateTimeParse([Date],&quot;%d-%m-%Y&quot;)" field="Availability_Date" size="10" type="Date" enabled="true" />
+            <FormulaField expression="DateTimeFormat([Availability_Date],&quot;%Y-%m&quot;)" field="Availability_Month" size="7" type="V_String" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Availability_Date = DateTimeParse([Date],"%d-%m-%Y")
+Availability_Month = DateTi...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="49">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="762" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF [Available_Hours]&gt;0&#xA;THEN [Booked_Hours]/[Available_Hours]&#xA;ELSE&#xA;0&#xA;ENDIF" field="Utilization_Rate" size="8" type="Double" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Utilization_Rate = IF [Available_Hours]&gt;0
+THEN [Booked_Hours]/[Available_Hours]
+...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="51">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="990" y="306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Partner_ID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Partner_ID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_Partner_ID" selected="True" rename="Right_Partner_ID" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="52">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1074" y="306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Date" selected="True" />
+            <SelectField field="Partner_ID" selected="True" />
+            <SelectField field="Available_Hours" selected="True" />
+            <SelectField field="Booked_Hours" selected="True" />
+            <SelectField field="Availability_Status" selected="True" />
+            <SelectField field="Availability_Date" selected="True" />
+            <SelectField field="Availability_Month" selected="True" />
+            <SelectField field="Utilization_Rate" selected="True" />
+            <SelectField field="Partner_Name" selected="True" />
+            <SelectField field="City" selected="True" />
+            <SelectField field="Category" selected="True" />
+            <SelectField field="Join_Date" selected="True" />
+            <SelectField field="Experience_Level" selected="True" />
+            <SelectField field="Initial_Quality_Score" selected="True" />
+            <SelectField field="Initial_Rating" selected="True" />
+            <SelectField field="Partner_Tenure_Months" selected="True" />
+            <SelectField field="Partner_Tenure_Group" selected="True" />
+            <SelectField field="Application_Date" selected="True" />
+            <SelectField field="Verification_Date" selected="True" />
+            <SelectField field="Verification_Status" selected="True" />
+            <SelectField field="Skill_Assessment_Date" selected="True" />
+            <SelectField field="Training_Date" selected="True" />
+            <SelectField field="Training_Status" selected="True" />
+            <SelectField field="Quality_Check_Date" selected="True" />
+            <SelectField field="Initial_Quality_Check" selected="True" />
+            <SelectField field="Activation_Date" selected="True" />
+            <SelectField field="Activation_Status" selected="True" />
+            <SelectField field="Onboarding_Status" selected="True" />
+            <SelectField field="Active_Status" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="54">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1146" y="306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Partner_ID" action="GroupBy" rename="Partner_ID" />
+            <SummarizeField field="Availability_Month" action="GroupBy" rename="Availability_Month" />
+            <SummarizeField field="Available_Hours" action="Sum" rename="Total_Available_Hours" />
+            <SummarizeField field="Booked_Hours" action="Sum" rename="Total_Booked_Hours" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="55">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1242" y="306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF [Total_Available_Hours]&gt;0&#xA;THEN [Total_Booked_Hours]/[Total_Available_Hours]&#xA;ELSE&#xA;0&#xA;ENDIF" field="Monthly_Utilization_Rate" size="8" type="Double" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Monthly_Utilization_Rate = IF [Total_Available_Hours]&gt;0
+THEN [Total_Booked_Hours...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="57">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+        <Position x="1326" y="306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <File MaxRecords="" FileFormat="0">C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\Availability_Monthly_Clean.csv</File>
+          <Passwords />
+          <Disable>False</Disable>
+          <FormatSpecificOptions>
+            <LineEndStyle>CRLF</LineEndStyle>
+            <Delimeter>,</Delimeter>
+            <ForceQuotes>False</ForceQuotes>
+            <HeaderRow>True</HeaderRow>
+            <CodePage>28591</CodePage>
+            <WriteBOM>True</WriteBOM>
+            <SuppressBlankFile>False</SuppressBlankFile>
+          </FormatSpecificOptions>
+          <MultiFile value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Availability_Monthly_Clean.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+    </Node>
+    <Node ToolID="59">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+        <Position x="1794" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <File MaxRecords="" FileFormat="0">C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv</File>
+          <Passwords />
+          <Disable>False</Disable>
+          <FormatSpecificOptions>
+            <LineEndStyle>CRLF</LineEndStyle>
+            <Delimeter>,</Delimeter>
+            <ForceQuotes>False</ForceQuotes>
+            <HeaderRow>True</HeaderRow>
+            <CodePage>28591</CodePage>
+            <WriteBOM>True</WriteBOM>
+            <SuppressBlankFile>False</SuppressBlankFile>
+          </FormatSpecificOptions>
+          <MultiFile value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>orders_integrated_clean.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+    </Node>
+    <Node ToolID="60">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="66" y="786" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="0">C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv</File>
+          <FormatSpecificOptions>
+            <CodePage>28591</CodePage>
+            <Delimeter>,</Delimeter>
+            <IgnoreErrors>False</IgnoreErrors>
+            <FieldLen>254</FieldLen>
+            <AllowShareWrite>False</AllowShareWrite>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>orders_integrated_clean.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Order_ID" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Customer_ID" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="City" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Category" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Booking_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Scheduled_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Partner_ID" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Order_Status" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Cancellation_Reason" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Completion_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Service_Duration_Min" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Response_Time_Min" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Price" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Discount" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Revenue" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Customer_Rating" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Complaint_Flag" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Rework_Flag" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Assignment_Status" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Repeat_Booking_Flag" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Order_Month" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Order_Delay_Days" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Service_Completed_Flags" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Order_Cancelled_Flag" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Order_NoShow_Flag" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Order_Assigned_Flag" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Partner_Cancelled_Flag" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Customer_Cancelled_Flag" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Supply_Failure_Flag" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Scheduling_Issue_Flag" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Discount_Rate" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="High_ResponseTime_Flag" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Service_Duration_Hours" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Signup_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Signup_Channel" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Partner_Name" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Join_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Experience_Level" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Initial_Quality_Score" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Initial_Rating" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Partner_Tenure_Months" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Partner_Tenure_Group" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Application_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Verification_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Verification_Status" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Skill_Assessment_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Training_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Training_Status" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Quality_Check_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Initial_Quality_Check" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Activation_Date" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Activation_Status" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Onboarding_Status" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+            <Field name="Active_Status" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\orders_integrated_clean.csv" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="61">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="162" y="714" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Order_ID" action="GroupBy" rename="Order_ID" />
+            <SummarizeField field="Order_ID" action="Count" rename="Order_ID_Count" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="62">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="246" y="714" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Order_ID_Count]&gt;1</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Order_ID_Count]&gt;1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="64">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="174" y="762" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Order_Status]="Completed" AND IsNull([Partner_ID])</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Order_Status]="Completed" AND IsNull([Partner_ID])</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="65">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="174" y="822" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Order_Status]="Completed" AND IsNull([Completion_Date])</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Order_Status]="Completed" AND IsNull([Completion_Date])</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="66">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="318" y="882" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Order_Status] != "Completed" AND [Revenue] != 0</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Order_Status] != "Completed" AND [Revenue] != 0</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="67">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="210" y="882" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Revenue" selected="True" type="Double" size="8" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="68">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="306" y="1002" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Revenue]&gt;[Price]</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Revenue]&gt;[Price]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="69">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="186" y="1002" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Price" selected="True" type="Double" size="8" />
+            <SelectField field="Discount" selected="True" type="Double" size="8" />
+            <SelectField field="Revenue" selected="True" type="Double" size="8" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="70">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="270" y="1074" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Discount]&gt;[Price]</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Discount]&gt;[Price]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="71">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="174" y="1158" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Order_Status]="Completed" AND IsNull([Service_Duration_Min])</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Order_Status]="Completed" AND IsNull([Service_Duration_Min])</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="72">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="522" y="882" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="0">C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\availability_monthly_clean.csv</File>
+          <FormatSpecificOptions>
+            <CodePage>28591</CodePage>
+            <Delimeter>,</Delimeter>
+            <IgnoreErrors>False</IgnoreErrors>
+            <FieldLen>254</FieldLen>
+            <AllowShareWrite>False</AllowShareWrite>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>availability_monthly_clean.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Partner_ID" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\availability_monthly_clean.csv" type="V_String" />
+            <Field name="Availability_Month" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\availability_monthly_clean.csv" type="V_String" />
+            <Field name="Total_Available_Hours" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\availability_monthly_clean.csv" type="V_String" />
+            <Field name="Total_Booked_Hours" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\availability_monthly_clean.csv" type="V_String" />
+            <Field name="Monthly_Utilization_Rate" size="254" source="File: C:\Users\tanav\OneDrive\Desktop\ServiGo\Output\availability_monthly_clean.csv" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="73">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="642" y="882" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Total_Available_Hours" selected="True" type="Double" size="8" />
+            <SelectField field="Total_Booked_Hours" selected="True" type="Double" size="8" />
+            <SelectField field="Monthly_Utilization_Rate" selected="True" type="Double" size="8" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="74">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="738" y="822" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Total_Booked_Hours]&gt;[Total_Available_Hours]</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Total_Booked_Hours]&gt;[Total_Available_Hours]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="76">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="318" y="1146" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Assignment_Status]="Assigned" AND NOT IsNull([Partner_Name])</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Assignment_Status]="Assigned" AND NOT IsNull([Partner_Name])</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="3" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="4" Connection="Input2" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output26" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="6" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="10" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="9" Connection="Output26" />
+      <Destination ToolID="10" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="Output" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Output" />
+      <Destination ToolID="9" Connection="Input2" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="Join" />
+      <Destination ToolID="11" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="11" Connection="Output" />
+      <Destination ToolID="12" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="12" Connection="Output" />
+      <Destination ToolID="13" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Output" />
+      <Destination ToolID="40" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="38" Connection="Output" />
+      <Destination ToolID="40" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Output" />
+      <Destination ToolID="51" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="49" Connection="Output" />
+      <Destination ToolID="51" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="15" Connection="Output" />
+      <Destination ToolID="16" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="16" Connection="Output" />
+      <Destination ToolID="17" Connection="Input2" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="Output26" />
+      <Destination ToolID="18" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Output" />
+      <Destination ToolID="19" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="19" Connection="Output" />
+      <Destination ToolID="20" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="20" Connection="Output" />
+      <Destination ToolID="21" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="21" Connection="Output" />
+      <Destination ToolID="22" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="22" Connection="Output" />
+      <Destination ToolID="23" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="23" Connection="Output" />
+      <Destination ToolID="24" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="24" Connection="Output" />
+      <Destination ToolID="25" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="25" Connection="Output" />
+      <Destination ToolID="26" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="26" Connection="Output" />
+      <Destination ToolID="27" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="27" Connection="Output" />
+      <Destination ToolID="29" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="29" Connection="Output" />
+      <Destination ToolID="30" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="30" Connection="Output" />
+      <Destination ToolID="32" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="32" Connection="Output" />
+      <Destination ToolID="37" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="36" Connection="Output26" />
+      <Destination ToolID="37" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="34" Connection="Output" />
+      <Destination ToolID="35" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="35" Connection="Output" />
+      <Destination ToolID="36" Connection="Input2" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="37" Connection="Join" />
+      <Destination ToolID="38" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="40" Connection="Join" />
+      <Destination ToolID="41" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="40" Connection="Left" />
+      <Destination ToolID="42" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="41" Connection="Output" />
+      <Destination ToolID="43" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="42" Connection="Output" />
+      <Destination ToolID="43" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="43" Connection="Output" />
+      <Destination ToolID="59" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="45" Connection="Output" />
+      <Destination ToolID="46" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="46" Connection="Output" />
+      <Destination ToolID="47" Connection="Input2" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="47" Connection="Output26" />
+      <Destination ToolID="48" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="48" Connection="Output" />
+      <Destination ToolID="49" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="51" Connection="Join" />
+      <Destination ToolID="52" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="52" Connection="Output" />
+      <Destination ToolID="54" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="54" Connection="Output" />
+      <Destination ToolID="55" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="55" Connection="Output" />
+      <Destination ToolID="57" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="60" Connection="Output" />
+      <Destination ToolID="61" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="60" Connection="Output" />
+      <Destination ToolID="64" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="60" Connection="Output" />
+      <Destination ToolID="65" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="60" Connection="Output" />
+      <Destination ToolID="67" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="60" Connection="Output" />
+      <Destination ToolID="69" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="60" Connection="Output" />
+      <Destination ToolID="71" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="61" Connection="Output" />
+      <Destination ToolID="62" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="67" Connection="Output" />
+      <Destination ToolID="66" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="69" Connection="Output" />
+      <Destination ToolID="68" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="69" Connection="Output" />
+      <Destination ToolID="70" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="69" Connection="Output" />
+      <Destination ToolID="76" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="72" Connection="Output" />
+      <Destination ToolID="73" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="73" Connection="Output" />
+      <Destination ToolID="74" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <DefaultTZ value="Local" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <IsTemplate value="False" />
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>ServiGo_ETL</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="5ec829e0-bfe1-45b3-aadb-de51dc4f88d2" />
+      <Telemetry>
+        <PreviousWorkflowId value="4a6cd88c-ef25-4afd-acb5-b4f77934254c" />
+        <OriginWorkflowId value="fd940c55-8beb-4cba-be5d-0c7c0086b38e" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>
