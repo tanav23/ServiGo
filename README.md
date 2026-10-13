@@ -30,8 +30,8 @@ ServiGo simulates a multi-city, on-demand home services marketplace. The project
 
 ### Main cleaned datasets
 
-- `orders_integrated_clean.csv` — 35,000 rows and 54 columns.
-- `availability_monthly_clean.csv` — 6,400 partner-month rows and 5 columns.
+- ![Orders Clean Dataset](orders_integrated_clean.csv) — 35,000 rows and 54 columns.
+- ![Availability Clean Dataset](availability_monthly_clean.csv) — 6,400 partner-month rows and 5 columns.
 
 ## Technology Stack
 
