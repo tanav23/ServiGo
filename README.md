@@ -151,14 +151,13 @@ These are proposed investigation priorities, not proven interventions or measure
 
 The repository contains the project scripts and analytical deliverables. File names and folders should reflect the actual uploaded files.
 
-- `generate_data.py` — synthetic data generation.
-- `validate_data.py` — data validation.
-- `ServiGo_ETL.yxmd` — Alteryx workflow.
-- `ServiGo_Operations_Dashboard.pbix` — Power BI dashboard.
-- SQL analysis script — KPI calculations and analytical queries.
-- `ServiGo_Analysis.xlsx` — KPI Summary and Executive Summary.
-- Cleaned CSV datasets — analytical inputs used by the workflow.
-
+- ![Generate Data](generate_data.py) — synthetic data generation.
+- ![Validate Data](validate_data.py) — data validation.
+- ![ServiGO ETL](ServiGo_ETL.yxmd) — Alteryx workflow.
+- ![PowerBI Dashboard](ServiGo_Operations_Dashboard.pbix) — Power BI dashboard.
+- ![SQL Script](sql_ServiGo.sql) — KPI calculations and analytical queries.
+- ![ServiGO Analysis](Servigo_Analysis.xlsx) — KPI Summary and Executive Summary.
+  
 ## Reproducibility
 
 1. Run the Python data-generation script.
